@@ -85,12 +85,61 @@ $0 \le \tilde{x}_0 \le M - 1$, $\{\tilde{x}_i\}_{i \ge 0} \in \{0, 1, \ldots, M 
 
 Послідовність $\{\tilde{x}_i\}_{i \ge 0}$ періодична. $T_{\max}$ -- максимальний період. $T_{\max} \le M$. Вигідно взяти $M$ якомога більшим, ближчим до максимального цілого числа, наприклад найбільше просте число, що менше $\Max \text{int}$. \\
 
-Мультиплікативний конгруентний метод не дозволяє досягти максимального теоретично можливого періоду рівного $M$. \\
+Мультиплікативний конгруентний метод не дозволяє досягти максимального теоретично можливого періоду рівного $M$.
 
 \[ \lambda(M) = \begin{cases} 1, & M = 2 \\ 2, & M = 4 \\ p^{q - 1}(p - 1), & M = p^q, p > 2, p \in \PP, q \ge 1 \\ \text{lcm}\left(\lambda\left(p_1^{q_1}\right), \lambda(p_2^{q_2}), \ldots, \lambda(p_k^{q_k})\right), & M = p_1^{q_1} \cdot p_2^{q_2} \cdot \ldots \cdot p_k^{q_k}. \end{cases} \]
 
 \begin{theorem}
     Максимальний період послідовність $\{\tilde{x}_i\}_{i \ge 0}$ мультиплікативного конгруентного методу $T_{\max} = \lambda(M)$. $T_{\max}$ досягається при:
+    \begin{enumerate}
+        \item $\text{gcd}(\tilde{x}_0, M) = 1$;
+        
+        \item $a_1^{\lambda(M)}\text{ mod }M = 1$, $a_1$ є первісним коренем за модулем $M$.
+    \end{enumerate}
 \end{theorem}
+
+\textbf{Зауваження}. Якщо покласти $M$ рівним простому числу, то $T_{\max} = M - 1$. В залежності від розрядності комп'ютера найбільшим простим числом буде:
+\begin{table}[H]
+    \centering
+    \begin{tabular}{cccc}
+        розрядність & 16 & 32 & 64 \\
+         $\max$ просте число & $2^{16} - 15$ & $2^{32} - 5$ & $2^64 - 59$  
+    \end{tabular}
+\end{table}
+
+\textbf{Змішаний конгруентний метод}: \\
+
+Лінійна змішана формула ($\ell = 1$, $a_0 > 0$).
+\begin{system*}
+    x_i &= \dfrac{\tilde{x}_i}{M} \\
+    \tilde{x}_i &= (a_0 + a_1 \tilde{x}_{i-1})\text{ mod }M, i = 1, 2, \ldots
+\end{system*}
+
+\begin{theorem}
+    Для отримання послідовності $\{\tilde{x}_i\}_{i\ge0}$ яка досягає свого $\max$ періоду $T_{\max} = M$, необхідно:
+    \begin{itemize}
+        \item $\text{gcd}(a_0, M) = 1$;
+        
+        \item $(a_1 - 1)\text{ mod }p = 0$ для всіх $p|M$, $p \in \PP$;
+        
+        \item $(a_1 - 1)\text{ mod }4 = 0$, якщо $4|M$.
+    \end{itemize}
+\end{theorem}
+
+\textbf{Зауваження!} Вибір параметрів змішаного конгруентного методу не є гарантією високої якості вибірки. Наприклад $a_0 = a_1 = 1$. \\
+
+\textbf{Квадратичний конгруентний метод}:
+\begin{system*}
+    x_i &= \dfrac{\tilde{x}_i}{M} \\
+    \tilde{x}_i &= (a_0 + a_1 \tilde{x}_{i-1} + a_2 \tilde{x}_{i-1}^2)\text{ mod }M, i = 1, 2, \ldots
+\end{system*}
+$T_{\max} = M$. \\
+
+\textbf{Ускладнення лінійної змішаної формули}:
+\begin{system*}
+    x_i &= \dfrac{\tilde{x}_i}{M} \\
+    \tilde{x}_i &= g(\tilde{x}_{i-1}, \tilde{x}_{i-2}, \ldots, \tilde{x}_{i-\ell})\text{ mod }M, i = 1, 2, \ldots
+\end{system*}
+
 
 \end{document}
