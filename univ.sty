@@ -18,12 +18,7 @@
 
 \usepackage{amsthm}
 \theoremstyle{definition}
-\newtheorem{theorem}{Теорема}[subsection]
-\newtheorem{definition}{Визначення}
-\newtheorem{prove}{Доведення}
-\newtheorem{problem}{\normalfont{\textit{Задача}}}[section]
-\newtheorem*{solution}{Розв'язок}
-\newtheorem*{side_comment}{Зауваження}
+\newtheorem{theorem}{Теорема}[section]
 
 \allowdisplaybreaks
 \setlength\parindent{0pt}
@@ -31,36 +26,17 @@
 \newcommand{\argmax}{\arg\max}
 \newcommand{\argmin}{\arg\min}
 
-\newcommand{\dif}{\mathrm{d}}
-\newcommand{\dydx}{\dfrac{\dif y}{\dif x}}
-\newcommand{\dxdt}{\dfrac{\dif x}{\dif t}}
-\newcommand{\dydt}{\dfrac{\dif y}{\dif t}}
-
 \newcommand{\partialDerivative}[2]{\dfrac{\partial #1}{\partial #2}}
 
-\newcommand{\NN}{\mathbb{N}} 
+\newcommand{\NN}{\mathbb{N}}
+\newcommand{\PP}{\mathbb{P}} 
 \newcommand{\ZZ}{\mathbb{Z}}
 \newcommand{\QQ}{\mathbb{Q}}
 \newcommand{\RR}{\mathbb{R}}
 \newcommand{\CC}{\mathbb{C}}
 
-\DeclareSymbolFont{extraitalic}{U}{zavm}{m}{it}
-\DeclareMathSymbol{\stigma}{\mathord}{extraitalic}{168}
-
-% \renewcommand{\Re}{\text{Re}}
-% \renewcommand{\Im}{\text{Im}}
-
-\newcommand{\const}{\text{const}}
-
-\newcommand{\LaReF}[1]{(\ref{#1})}
-
 \renewcommand{\epsilon}{\varepsilon}
 \renewcommand{\phi}{\varphi}
-
-\newcommand{\ndiv}{\!\!\not|\,}
-\newcommand{\nequiv}{\not\equiv}
-
-\newcommand{\ws}{\text{ }}
 
 \newcommand{\Max}{\displaystyle\max\limits}
 \newcommand{\Min}{\displaystyle\min\limits}
@@ -69,12 +45,8 @@
 \newcommand{\Lim}{\displaystyle\lim\limits}
 \newcommand{\Prod}{\displaystyle\prod\limits}
 
-\allowdisplaybreaks
-
 \newcommand{\underbracetext}[2]{\underset{#1}{\underbrace{#2}}}
 \newcommand{\underbrackettext}[2]{\underset{#1}{\underbracket{#2}}}
-
-\numberwithin{equation}{subsection}
 
 \DeclareMathOperator{\sech}{sech}
 \DeclareMathOperator{\csch}{csch}
