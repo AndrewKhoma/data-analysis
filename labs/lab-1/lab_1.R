@@ -9,22 +9,22 @@ library(tidyverse)
 library(e1071)
 
 # change working directory to that of cats.csv:
-setwd("C:/Users/NikitaSkybytskyi/Desktop/data-analysis/labs/lab-1")
+# setwd("C:/Users/NikitaSkybytskyi/Desktop/data-analysis/labs/lab-1")
 
-# read .csv with header and store in memory as data
-data <- read.csv(file = "cats.csv", header = TRUE, stringsAsFactors = FALSE)
-data
+# read .csv with header and store in memory as norm.data
+norm.data <- read.csv(file = "cats.csv", header = TRUE, stringsAsFactors = FALSE)
+# norm.data
 
 # Bwt is body weight and Hwt is heart weight:
-x <- data$Hwt
-x
+x <- norm.data$Hwt
+# x
 
 # we will sort x to simplify further plotting:
 x.sorted = sort(x)
-x.sorted
+# x.sorted
 
 # basic stat for further usage:
-x.stats <- data.frame(mean = mean(x), sd = sd(x), range = range(x))
+stats <- data.frame(mean = mean(x), sd = sd(x), range = range(x))
 
 # histogram
 hist(x, breaks = 20)
@@ -71,5 +71,5 @@ cat(sprintf("Range = %.4f\n", diff(stats$range)))
 cat(sprintf("Skewness = %.4f\n", skewness(x)))
 # Skewness = 0.8214
 
-cat(sprintf("Εκρφερ = %.4f\n", kurtosis(x)))
+cat(sprintf("Kurtosis = %.4f\n", kurtosis(x)))
 # Kurtosis = 1.0253
