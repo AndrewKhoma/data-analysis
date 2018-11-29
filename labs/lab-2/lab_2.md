@@ -101,9 +101,10 @@ The correlation matrix can be reordered according to the correlation coefficient
 
 You can also reorder the matrix “manually” via function `corrMatOrder()`.
 
-* `"AOE"` is for the angular order of the eigenvectors. It is calculated from the order of the angles $a_i$,
+* `"AOE"` is for the angular order of the eigenvectors. It is calculated from the order of the angles <a href="https://www.codecogs.com/eqnedit.php?latex=a_i" target="_blank"><img src="https://latex.codecogs.com/gif.latex?a_i" title="a_i" /></a>,
 <a href="https://www.codecogs.com/eqnedit.php?latex=a_i&space;=&space;\begin{cases}&space;\tan(e_{i2}&space;/&space;e_{i1}),&space;&&space;\text{if&space;}&space;e_{i1}&space;>&space;0;&space;\\&space;\tan(e_{i2}&space;*&space;e_{i1})&space;&plus;&space;\pi,&space;&&space;\text{otherwise}.&space;\end{cases}" target="_blank"><img src="https://latex.codecogs.com/gif.latex?a_i&space;=&space;\begin{cases}&space;\tan(e_{i2}&space;/&space;e_{i1}),&space;&&space;\text{if&space;}&space;e_{i1}&space;>&space;0;&space;\\&space;\tan(e_{i2}&space;*&space;e_{i1})&space;&plus;&space;\pi,&space;&&space;\text{otherwise}.&space;\end{cases}" title="a_i = \begin{cases} \tan(e_{i2} / e_{i1}), & \text{if } e_{i1} > 0; \\ \tan(e_{i2} * e_{i1}) + \pi, & \text{otherwise}. \end{cases}" /></a>
-where $e_1$ and $e_2$ are the largest two eigenvalues of the correlation matrix. See Michael Friendly (2002) for details.
+
+where <a href="https://www.codecogs.com/eqnedit.php?latex=e_1" target="_blank"><img src="https://latex.codecogs.com/gif.latex?e_1" title="e_1" /></a> and <a href="https://www.codecogs.com/eqnedit.php?latex=e_2" target="_blank"><img src="https://latex.codecogs.com/gif.latex?e_2" title="e_2" /></a> are the largest two eigenvalues of the correlation matrix. See Michael Friendly (2002) for details.
 
 * `"FPC"` for the first principal component order.
 
