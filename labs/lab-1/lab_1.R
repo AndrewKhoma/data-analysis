@@ -9,7 +9,7 @@ library(tidyverse)
 library(e1071)
 
 # change working directory to that of cats.csv:
-# setwd("C:/Users/NikitaSkybytskyi/Desktop/data-analysis")
+# setwd("C:/Users/NikitaSkybytskyi/Desktop/data-analysis/labs/lab-1")
 
 # read .csv with header and store in memory as norm.data
 norm.data <- read.csv(file = "cats.csv", header = TRUE, stringsAsFactors = FALSE)
