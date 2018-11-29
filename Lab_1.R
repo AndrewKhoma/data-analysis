@@ -1,31 +1,75 @@
+# install tidyverse:
+# install.packages("tidyverse")
+
+# import tidyverse:
 library(tidyverse)
-norm.data <- read.csv(file = "cats.csv",header = T, stringsAsFactors = F)
-norm.data
+
+# for kurtosis function:
+# install.packages("e1071")
+library(e1071)
+
+# change working directory to that of cats.csv:
+# setwd("C:/Users/NikitaSkybytskyi/Desktop/data-analysis")
+
+# read .csv with header and store in memory as norm.data
+norm.data <- read.csv(file = "cats.csv", header = TRUE, stringsAsFactors = FALSE)
+# norm.data
+
+# Bwt is body weight and Hwt is heart weight:
 x <- norm.data$Hwt
-class(sort(x))
+# x
+
+# we will sort x to simplify further plotting:
+x.sorted = sort(x)
+# x.sorted
+
+# basic stat for further usage:
+stast <- data.frame(mean = mean(x), sd = sd(x), range = range(x))
+
+# histogram
+hist(x = x, breaks = 30)
+
+# box plot
+boxplot(x, horizontal = TRUE, col = "turquoise")
+
+# q-q plot
+ggplot(data = norm.data, mapping = aes(sample = x)) + stat_qq() + stat_qq_line()
 
 # p-p plot
-mean = mean(norm.data$Hwt)
-sd = sd(norm.data$Hwt)
 x.ecdf = ecdf(x.sorted)
-x.sorted = sort(x)
-ggplot(data = norm.data, mapping = aes(x = x.ecdf(x.sorted), y = pnorm(q = sort(x), mean = mean, sd = sd))) + geom_point() + geom_abline(intercept = 0, slope = 1, size = 1)
+ggplot(
+  data = norm.data,
+  mapping = aes(x = x.ecdf(x.sorted), y = pnorm(q = x.sorted, mean = mean, sd = sd))
+) + geom_point() + geom_abline(intercept = 0, slope = 1, size = 1)
 
-#histogram
-hist(x = x, breaks = 30)
-# q-q plot
-ggplot(data= norm.data, mapping = aes(sample = x)) + stat_qq() + stat_qq_line()
-# box-plot
-boxplot(x, horizontal = T, col = "turquoise")
-sample_range = range(x)
-cat(sprintf("mean = %f\n", mean(x)))
-cat(sprintf("median = %f\n", median(x)))
-cat(sprintf("variance = %f.4\n", var(x)))
-cat(sprintf("standard deviation = %.4f\n", sd(x = x)))
-cat(sprintf("coefficient of variation = %.4f\n", (sd(x = x)/mean(x = x))))
-cat(sprintf("min value = %f.4\n", sample_range[1]))
-cat(sprintf("max value = %f.4\n", sample_range[2]))
-cat(sprintf("range of sample = %f.4\n", sample_range[2] - sample_range[1]))
-cat(sprintf("kurtosis = %f.4\n", kurtosis(x = x)))
-cat(sprintf("skewdness = %f.4\n", skewness(x = x)))
+cat(sprintf("Mean = %.4f\n", stats$mean))
+# Mean = 10.6306
 
+cat(sprintf("Median = %.4f\n", median(x)))
+# Median = 10.1000
+
+# Mode is not applicable
+
+cat(sprintf("Variance = %.4f\n", var(x)))
+# Variance = 5.9275
+
+cat(sprintf("Standard deviation = %.4f\n", stats$sd))
+# Standard deviation = 2.4346
+
+cat(sprintf("Coefficient of variation = %.4f\n", stats$sd / stats$mean)))
+# Coefficient of variation = 0.2290
+
+cat(sprintf("Min value = %.4f\n", stats$range[1]))
+# Min value = 6.3000
+
+cat(sprintf("Max value = %.4f\n", stats$range[2]))
+# Max value = 20.5000
+
+cat(sprintf("Range = %.4f\n", stats$range[2] - stats$range[1]))
+# Range of sample = 14.2000
+
+cat(sprintf("Skewness = %.4f\n", skewness(x = x)))
+# Skewness = 0.8214
+
+cat(sprintf("Kurtosis = %.4f\n", kurtosis(x = x)))
+# Kurtosis = 1.0253
