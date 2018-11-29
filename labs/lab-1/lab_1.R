@@ -65,7 +65,7 @@ cat(sprintf("Min value = %.4f\n", stats$range[1]))
 cat(sprintf("Max value = %.4f\n", stats$range[2]))
 # Max value = 20.5000
 
-cat(sprintf("Range = %.4f\n", stats$range[2] - stats$range[1]))
+cat(sprintf("Range = %.4f\n", diff(stats$range)))
 # Range of sample = 14.2000
 
 cat(sprintf("Skewness = %.4f\n", skewness(x)))
