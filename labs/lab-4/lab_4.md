@@ -1,0 +1,67 @@
+# Лабораторна робота №4
+
+Для факторного аналізу скористаємося датасетом `salaries` який містить дані про зарплати різноманітних академіків з університету Берклі що в Каліфорнії, академічне звання, дисципліну, кількість років після отримання наукового ступеню, кількість років на роботі і стать.
+
+```R
+salaries = read.csv(file = "C:/Users/NikitaSkybytskyi/Desktop/data-analysis/labs/lab-4/Salaries.csv", header = TRUE, sep=";", stringsAsFactors = TRUE)
+salaries
+```
+num |   X |      rank | discipline | yrs.since.phd | yrs.service |  sex | salary
+----|-----|-----------|------------|---------------|-------------|------|-------
+1   |   1 |      Prof |          B |            19 |          18 | Male | 139750
+2   |   2 |      Prof |          B |            20 |          16 | Male | 173200
+3   |   3 |  AsstProf |          B |             4 |           3 | Male |  79750
+4   |   4 |      Prof |          B |            45 |          39 | Male | 115000
+5   |   5 |      Prof |          B |            40 |          41 | Male | 141500
+... | ... |       ... |        ... |           ... |         ... |  ... |    ...
+138 | 138 |      Prof |          A |             1 |          14 | Male | 105668
+139 | 139 | AssocProf |          A |            10 |           7 | Male |  73877
+140 | 140 |      Prof |          A |            21 |          18 | Male | 152664
+141 | 141 | AssocProf |          A |            14 |           8 | Male | 100102
+142 | 142 | AssocProf |          A |            15 |          10 | Male |  81500
+
+Пересвідчимося, що академічне звання справді є факторною змінною:
+```R
+> class(salaries[,"rank"])
+[1] "factor"
+> unique(salaries[,"rank"])
+[1] Prof      AsstProf  AssocProf
+Levels: AssocProf AsstProf Prof
+```
+
+Побудуємо три різні моделі:
+* залежності з/п від академічного звання:
+```R
+summary(aov(formula = salary ~ rank, data = salaries))
+```
+```
+             Df    Sum Sq   Mean Sq F value Pr(>F)    
+rank          2 1.432e+11 7.162e+10   128.2 <2e-16 ***
+Residuals   394 2.201e+11 5.586e+08                   
+---
+Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1
+```
+* залежності з/п від статі:
+```R
+summary(aov(formula = salary ~ sex, data = salaries))
+```
+```
+             Df    Sum Sq   Mean Sq F value  Pr(>F)   
+sex           1 6.980e+09 6.980e+09   7.738 0.00567 **
+Residuals   395 3.563e+11 9.021e+08                   
+---
+Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1
+```
+* і залежності з/п від обох цих величин:
+```R
+summary(aov(formula = salary~rank+sex+sex:rank, data = salaries))
+```
+```
+             Df    Sum Sq   Mean Sq F value Pr(>F)    
+rank          2 1.432e+11 7.162e+10 127.755 <2e-16 ***
+sex           1 8.408e+08 8.408e+08   1.500  0.221    
+rank:sex      2 4.360e+07 2.180e+07   0.039  0.962    
+Residuals   391 2.192e+11 5.606e+08                   
+---
+Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1
+```
