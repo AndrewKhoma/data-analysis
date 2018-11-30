@@ -5,13 +5,12 @@ library(corrplot)
 M <- cor(mtcars)
 # M
 
-res1 <- cor.mtest(mtcars, conf.level = .95)
-res2 <- cor.mtest(mtcars, conf.level = .99)
+res <- cor.mtest(mtcars, conf.level = .95)
 
 # specialized the insignificant value according to the significant level
 corrplot(
   M,
-  p.mat = res1$p, 
+  p.mat = res$p, 
   sig.level = .05,
   order = "hclust", 
   addrect = 3
