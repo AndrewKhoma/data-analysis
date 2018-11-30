@@ -29,8 +29,8 @@ num |   X |      rank | discipline | yrs.since.phd | yrs.service |  sex | salary
 Levels: AssocProf AsstProf Prof
 ```
 
-Побудуємо три різні моделі:
-* залежності з/п від академічного звання:
+Перевіримо три залежності:
+* з/п від академічного звання:
 ```R
 summary(aov(formula = salary ~ rank, data = salaries))
 ```
@@ -41,7 +41,9 @@ Residuals   394 2.201e+11 5.586e+08
 ---
 Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1
 ```
-* залежності з/п від статі:
+Як бачимо, залежність між академічним званням і з/п є, адже `p = 2e-16`.
+
+* з/п від статі:
 ```R
 summary(aov(formula = salary ~ sex, data = salaries))
 ```
@@ -52,9 +54,11 @@ Residuals   395 3.563e+11 9.021e+08
 ---
 Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1
 ```
-* і залежності з/п від обох цих величин:
+Як бачимо, залежність між статтю і з/п є, адже `p = 0.00567`.
+
+* з/п від комбінації обох цих величин:
 ```R
-summary(aov(formula = salary~rank+sex+sex:rank, data = salaries))
+summary(aov(formula = salary ~ rank + sex + sex:rank, data = salaries))
 ```
 ```
              Df    Sum Sq   Mean Sq F value Pr(>F)    
@@ -65,3 +69,4 @@ Residuals   391 2.192e+11 5.606e+08
 ---
 Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1
 ```
+Попередні висновки залишаються в силі, а от залежності між комбінацією академічного звання і статі та з/п немає, бо `p = 0.962`.
