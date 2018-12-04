@@ -1,0 +1,48 @@
+% $y = X \vec\mu + e$, де $X \in \RR^{N\times(I+1)}$, $\vec\mu=(\mu,\mu_1,\ldots,\mu_I)^T$.
+
+Для існування оцінки $\widehat{\mu}$ потрібно $\rang  X = I$, тобто \[ \exists w_i: \Sum_{i=1}^I w_i\mu_i=0, \quad \Sum_{i=1}^I w_i = 1, \quad \forall i: w_i > 0. \]
+
+Отримаємо оцінку $\vec \mu$ паралельно оцінивши суттєвість впливу однієї змінної на іншу. Математично це рівносильно перевірці гіпотези $H: \mu_1 = \mu_2 = \ldots = \mu_I = 0$, $0<\gamma<1$. \\
+
+Запишемо цю гіпотезу як $H: A \mu = \vec 0$, де $\rang  A = I -1$, тоді можна скористатися теоремою вище. Згідно теореми область прийняття гіпотези матиме вигляд: \[ F = \dfrac{\dfrac{Q(\widehat{\mu}_L)-Q(\widehat{\mu})}{I-1}}{\dfrac{Q(\widehat{\mu})}{N-I}} < F_\gamma(I-1,N-1). \]
+
+\textbf{Зауваження}. Якщо $I-1$ параметр є нульовими, то і $I$-й параметр теж нульовий, згідно умов із $w$. \\
+
+Знайдемо $Q(\widehat{\mu})$. Відомо, що оцінка методом найменших квадратів є розв'язком системи нормальних рівнянь $X^T X \widehat{\mu} = X^T y$. Перепишемо систему в розгорнутому матричному вигляді:
+
+\[ \begin{pmatrix} N & J_1 & J_2 & \ldots & J_{I} \\ J_1 & J_1 & 0 & \ldots & 0 \\ J_2 & 0 & J_2 & \ldots & 0 \\ \vdots & \vdots & \vdots & \ddots & \vdots \\ J_1 & 0 & 0 & \ldots & J_I \end{pmatrix} \begin{pmatrix} \widehat{\mu} \\ \widehat{\mu}_1 \\ \widehat{\mu}_2 \\ \vdots \\ \widehat{\mu}_I \end{pmatrix} = \begin{pmatrix} \sum_{i=1}^I\sum_{j=1}^{J_i}y_{ij} \\ J_1 \bar{y}_1 \\ J_2 \bar{y}_2 \\ \vdots \\ J_I \bar{y}_I \end{pmatrix}, \] де $\bar{y}_i$ -- вибіркове середнє $i$-ої групи.\\
+
+Розглянемо окреме рівняння системи, отримаємо \[ \forall i: J_i \widehat{\mu} + J_i \widehat{\mu}_i = J_i \bar{y}_i \Rightarrow \bar{y}_i = \widehat{\mu} + \widehat{\mu}_i, \] тобто оцінкою абсолютного впливу $і$-тої градації є $\bar{y}_i$. Звідси маємо $\widehat{\mu}_i = \bar{y}_i - \widehat{\mu}$. \\
+
+З рівнянь на $w$ знаходиться $\widehat{\mu} = \Sum_{i=1}^I  w_i\bar{y}_i$, тобто $\widehat{\mu}_i = \bar{y}_i - \Sum_{i=1}^I  w_i\bar{y}_i$. \\
+
+Згідно викладеного вище отримаємо \[ Q(\widehat{\mu}) = \Sum_{i=1}^I \sum_{j=1}^{J_i} (y_{ij}-\bar{y}_i)^2. \]
+
+$L$ -- лінійне обмеження, еквівалентне умовам на $w$, тому $\widehat{\mu}_L: \widetilde{X}^T\widetilde{X}\widehat{\mu}_L=\widetilde{X}^Ty$, де $\widetilde{X} = (1, \ldots, 1)^T$ -- вектор стовпчик при обмеженні $L$, тому \[\widehat{\mu}_L = \dfrac{1}{N} \Sum_{i=1}^I \Sum_{j=1}^{I_j} y_{ij} = \bar{y}\] -- загальне середнє по всім вимірам. \\
+
+Зауважимо що тут ми часто користуємося $\mu$ як для позначення вектора $\vec\mu$ так і на позначення його першої компоненти, у марних сподіваннях на те що з контексту зрозуміло коли що використовується. \\
+
+\textbf{Наслідок/Зауваження}: зі структури матриці $X$ випливає, що \[ Q(\widehat{\mu}_L)-Q(\widehat{\mu})=\|X\widehat{\mu}-X\widehat{\mu}_L\|_2^2 = \Sum_{i=1}^I\Sum_{j=1}^{J_i}(\bar{y}_i-\bar{y})^2 =  \Sum_{i=1}^I J_i(\bar{y}_i-\bar{y})^2. \]
+
+Підставляючи це все в $F$ знайдемо \[ F = \dfrac{\dfrac{\Sum_{i=1}^IJ_i(y_i-\bar{y})^2}{I-1}}{\dfrac{\Sum_{i=1}^I\Sum_{j=1}^{J_i}(y_{ij}-\bar{y}_i)^2}{N-I}} < F_\gamma(I-1,N-I). \]
+
+\subsection{Таблиця результатів однофакторного дисперсійного аналізу}
+
+\begin{table}[H]
+	\centering
+	\begin{tabular}{|c|c|c|c|c|c|}
+		\hline
+		Джерело варіацій & Сума квадратів & КСС & ССК & $F$ & $\gamma_*$ \\ \hline
+		Між градаціями & $S_A$ & $I - 1$ & $\bar{S}_A = \dfrac{S_A}{I - 1}$ & \multirow{2}{*}{$F = \dfrac{\bar{S}_A}{\bar{S}_E}$} & \multirow{2}{*}{$\gamma_*$} \\ \cline{1-4}
+		Всередині градацій & $S_E$ & $N - I$ & $\bar{S}_E = \dfrac{S_E}{N - I}$ & & \\ \hline
+	\end{tabular}
+\end{table}
+
+де \[ S_E = \Sum_{i=1}^I\Sum_{j=1}^{J_i}(y_{ij}-\bar{y}_i)^2, \qquad S_A = \Sum_{i=1}^I J_i(\bar{y}_i -\bar{y})^2,\] $\gamma_*$ -- максимальна ймовірність при котрій гіпотеза приймається (рівень значимості).
+
+
+\subsection{Перевірка контрастів}
+
+Якщо гіпотеза $\vec\mu=\vec0$ несправедлива, то нас цікавить питання: чи є серед градацій такі, що мають суттєві відхилення від нуля. Намагаємось виявити серед усіх градацій такі їх підмножини, що середні по ним несуттєво відхиляються від середніх сусідніх підмножин. \\
+
+Абсолютний вплив $і$-ої градації, це $\theta_t=\mu-\mu_i$, та $\widehat{\theta}=\bar{y}_i$.
