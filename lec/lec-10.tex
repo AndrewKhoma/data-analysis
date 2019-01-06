@@ -1,11 +1,9 @@
 \section{Регресійний аналіз}
-
 Регресійний аналіз займається побудовою математичної моделі зв'язку з кількісними змінними. \\
 
 Нехай маємо $\eta$ -- залежну кількісну скалярну змінну, $\xi \in \RR^p$ -- вектор незалежних змінних.\\
 
 Зв'язок між змінними істотній. Ми хочемо побудувати математичну модель зв'язку між ними. В кореляційному аналізі його явне задання шукаємо у вигляді функції регресії (теоретично): $f(x)=M(\eta/\xi=x)$.
-
 \begin{lemma}
 	Нехай $M\eta^2<\infty$. Позначимо $\mathcal{R}: \RR^q\to\RR^1$, тоді \[f(\cdot)=\argmin_{g(\cdot)\in\mathcal{R}} M((\eta-g(\xi))^2).\]
 \end{lemma}
@@ -17,76 +15,49 @@
 		\ge M(\eta-f(\xi))^2 + 2M\left((M(\eta/\xi)-f(\xi))(f(\xi)-g(\xi))\right) = M(\eta-f(\xi)^2).
 	\end{multline*}
 \end{proof}
-
 Нехай $\eta=f(\xi)+\epsilon$, позначимо спостереження над $\eta$ як $y(i)$ і спостереження над $\xi$ -- $x(i)$, $i = \overline{1, N}$. $y(k) = f(x(k)) + e(k)$, $k=\overline{1,N}$.
-
 \subsection{Основні етапи розв'язку задачі регресійного аналізу}
-
 \begin{enumerate}
 	\item Вибір класу апроксимуючих функцій $g(x,\alpha)\in\mathcal{J}$.
-	
 	\item Отримання точеної чи множинної оцінки для вектора $\alpha$ невідомих параметрів, а також її характеристики розсіяності. $M(\widehat{\alpha}-\alpha)(\widehat{\alpha}-\alpha)^T$, де $\alpha$ -- точне значення, $\widehat{\alpha}$ -- оцінка для $\alpha$.
-
 	\item Перевірка на значимість відхилення параметрів моделі від нуля: $H_0: \alpha_i = 0$ з рівнем значимості $0 < \gamma < 1$.
-
 	\item Перевірка на адекватність отриманої моделі: \[ M((\eta-g(\xi,\alpha))^2), \quad \dfrac{1}{N}\Sum_{k=1}^N (y(k)-g(x(k),\alpha))^2. \]
 \end{enumerate}
-
 \subsection{Класичний регресійний аналіз}
-
 Постановка: в якості апроксимації береться функція, лінійна по параметрах: 
 \[ y(k) = \Sum_{i=1}^p \phi_i(x'(k)) \alpha_i + e(k), \quad k = \overline{1,N}. \]
 \[ x(k) = (\phi_1(x'(k)), \phi_2(x'(k)), \ldots, \phi_p(x'(k)))^T, \quad \alpha = (\alpha_1, \alpha_2, \ldots, \alpha_p)^T. \]
 \[ y(k) = \Sum_{i=1}^p x_i(k) \alpha_i + e(k) = x^T(k) \alpha + e(k), \quad k=\overline{1,N}. \]
-
 Функції $x_i(k)$ називаються \textit{регресорами}, це просто деякі функції від векторів незалежних змінних. Введемо ще трохи позначень:
 \[ y = (y(1), \ldots, y(N))^T,\quad e = (e(1), \ldots, e(N))^T, \quad X = (x^T(1), \ldots, x^T(N))^T. \]
-
 Тоді модель можна переписати у вигляді $y = X\alpha + e$. \\
 
 \subsection{Основні припущення класичного регресійного аналізу}
-
 \begin{enumerate}
 	\item Помилки моделі вважати нормально розподіленими $e(k) \sim N(0, \sigma^2)$.
-	
 	\item Вони незалежні.
-
 	\item $X$ -- відома, і має повний ранг по стовпчикам $rank X = p$.
-	
 	\item Немає ніяких обмежень на вектор невідомих параметрів $\alpha$.
 \end{enumerate}
-
 Будемо шукати оцінку мінімізуючи функціонал: 
 \[ \Sum_{k=1}^N e^2(k) = \|y - X\alpha\|_2^2 = \Sum_{k=1}^N (y(k) - X^T(k)\alpha)^2 \to \min_\alpha. \]
-
 Точкою мінімуму буде $\widehat{\alpha} = (X^TX)^{-1}X^T y$. \\
 
 Доведемо це, враховуючи $\nabla_\alpha(\alpha^T\beta)=\beta$, $\nabla_\alpha(\alpha^TA\alpha)=(A+A^T)\alpha$. \\
 
 Розпишемо функціонал: $ \|y - X\alpha\|_2^2 = \alpha^TX^TX\alpha-2\alpha^TX^Ty+\|y\|_2^2$.
-
 \[(\nabla_\alpha\|y-X\alpha\|_2^2)|_{\alpha=\widehat{\alpha}} = (2X^TX\alpha-2X^Ty)|_{\alpha=\widehat{\alpha}}. \]
-
 Отже, в системі $X^TX\widehat{\alpha}=X^TY$, матриця $X^TX$ -- не вироджена, тому \[ \widehat{\alpha} = (X^TX)^{-1}X^Ty. \]
-
 Таким чином \[\widehat{y}(k) = X^T(k)\widehat{\alpha}, \quad \widehat{y} = X\widehat{\alpha}, \quad \widehat{\sigma}^2 = \dfrac{\|y-X\widehat{\alpha}\|_2}{N-p}\] -- \textit{незміщена оцінка максимальної правдоподібності}.
-
 \subsection{Властивості оцінок}
-
 \begin{enumerate}
 	\item $\widehat{\alpha} \sim N(\alpha, \sigma^2(X^TX)^{-1})$;
-
 	\item стастистика $\dfrac{(\widehat{\alpha}-\alpha)X^TX(\widehat{\alpha}-\alpha)}{\sigma^2} \sim \chi^2(p)$;
-
 	\item $\widehat{y} \sim N(X\alpha, \sigma^2 X(X^TX)^{-1}X^T)$;
-
 	\item $M\widehat{\sigma}^2 = \sigma^2$ -- \textit{незміщена} оцінка;
-
 	\item $\widehat{\alpha}$, $\widehat{\sigma}^2$ -- незалежні оцінки (випадкові величини);
-
 	\item $\widehat{\alpha}$, $\widehat{y}$, $\widehat{\sigma}^2$ -- \textit{ефективні на класі незміщених оцінок}.
 \end{enumerate}
-
 Доведемо деякі властивості:
 \begin{enumerate}
 	\item 
@@ -99,22 +70,19 @@
 		M(\widehat{\alpha}-\alpha)(\widehat{\alpha}-\alpha)^T = M((X^TX)^{-1}X^Tee^TX(X^TX)^{-1}) = \\
 		\sigma^2 (X^TX)^{-1}(X^TX)(X^TX)^{-1} = \sigma^2 (X^TX)^{-1}.
 	\end{multline*}
-
 	\item Доведемо спершу лему:
 	\begin{lemma}
 		Нехай $\xi \in \RR^q$, $\xi \sim N(m, R)$, $R > 0$, тоді виконується \[ (\xi-m)^TR^{-1}(\xi-m)\sim\chi^2(q).\]
 	\end{lemma}
 	\begin{proof}
-		$M(\xi-m)=\vec0$. $R^{1/2}(\xi - m)\sim N(\vec0,E_q)$. \[R = T \begin{pmatrix} \mu_1 & \cdots & 0 \\ \vdots & \ddots & \vdots \\ 0 & \cdots & \mu_n \end{pmatrix} T^T\] $\|R^{1/2}(\xi-m)\|_2^2 \sim \chi^2(q)$ співпадає з квадратичною формою.
+		$M(\xi-m)=\vec0$. $R^{1/2}(\xi - m)\sim N(\vec0,E_q)$. \[R = T \begin{pmatrix} \mu_1 & \cdots & 0 \\
+ \vdots & \ddots & \vdots \\
+ 0 & \cdots & \mu_n \end{pmatrix} T^T\] $\|R^{1/2}(\xi-m)\|_2^2 \sim \chi^2(q)$ співпадає з квадратичною формою.
 	\end{proof}
-
 	Сама властивість є просто наслідком застосування леми до $\widehat{\alpha}$.
-
 	\item $\widehat{y} = X \widehat{\alpha} \sim N(X\alpha, \sigma^2X(X^TX)^{-1}X^T)$.
 \end{enumerate}
-
 \subsection{Довірчі області та інтервали для невідомих параметрів моделі}
-
 \begin{enumerate}
 	\item Довірча область для $\alpha$ з рівнем значимості $(1-\gamma)$. \\
 
@@ -123,79 +91,60 @@
 		\chi^2(p) = \dfrac{(\widehat{\alpha}-\alpha)X^TX(\widehat{\alpha}-\alpha)}{\sigma^2} = \\
 		= \dfrac{e^TX(X^TX)^{-1}(X^TX)(X^TX)^{-1}X^Te}{N-p} = \dfrac{e^TX(X^TX)^{-1}X^Te}{\sigma^2}
 	\end{multline*}
-
 	$\chi^2(N - p)\sim \dfrac{(N-p)\widehat{\sigma}^2}{\sigma^2}$, де $\widehat{\sigma}^2 = \dfrac{\|y-X\alpha\|_2^2}{N-p}$. Маємо
-
 	\begin{multline*} 
 		\dfrac{\|y-X(X^TX)^{-1}X^Ty\|_2^2}{N-p} = \dfrac{\|(E-X(X^TX)^{-1}X^T)(X\alpha+e)\|_2^2}{N-p} = \\
 		\dfrac{\|PX\alpha+Pe\|_2^2}{N-p} = \dfrac{e^TP^TPe}{N-p} = \dfrac{e^TP^2e}{N-p} = \dfrac{e^TPe}{N-p},
 	\end{multline*}
 	де $P = E-X(X^TX)^{-1}X^T$, $PX=O$, $P^2=P$. Тобто, маємо $\widehat{\sigma}^2 = \frac{e^TPe}{N-p}$, звідки \[\dfrac{(N-p)\widehat{\sigma}^2}{\sigma^2}=\dfrac{(N-p)e^TPe}{(N-p)\sigma^2} = \dfrac{e^TPe}{\sigma^2}. \]
-
 	\begin{lemma}	
 		Нехай $\xi\in\RR^n$, $\xi\sim N(m,\sigma^2E)$, $A$, $B$ -- матриці розмірності $N\times N$, тоді квадратичні форми $\xi^TA\xi$, $\xi^TB\xi$ будуть незалежні тоді і тільки тоді, коли $AB = O$.
 	\end{lemma}
-
 	\[ \dfrac{(\widehat{\alpha}-\alpha)^TX^TX(\widehat{\alpha}-\alpha)}{\sigma^2P} < F_\gamma(p, N-p)\] -- \textit{довірча область}.
-
 	\item Довірчий інтервал для $\alpha_i$ отримуємо аналогічно:
 	\[ \left|\dfrac{\widehat{\alpha}_i-\alpha}{\widehat{\sigma}\sqrt{d_i}}\right|<t_{\gamma/2}(N-p). \]
-
 	\item Інтервали Бонфероні. \\
 
 	Якщо для кожної компоненти побудувати довірчий інтервал з рівнями довіри $1 - \gamma/(\dim \alpha)$ i $A_i$ -- ймовірність того, що $i$-та компонента $\in$ своєму довірчому інтервалу, який побудований за попереднім пунктом. Тоді $\bigcap\limits_{i=1}^p A_i$ -- всі компоненти $\in$ своїм довірчим інтервалам. Зрозуміло що \[P\left\{\bigcap\limits_{i=1}^p A_i\right\}\ge1-\gamma.\]
 \end{enumerate}
-
 \subsection{Перевірка на значимість параметрів моделі}
-
 \begin{enumerate}
 	\item Перевіряємо гіпотезу: $H_0:\alpha=0$ -- вектор параметрів, $\gamma$ -- рівень довіри. \\
 
 	Якщо $H_0$ справедлива, то наступна статистика $\dfrac{\widehat{\alpha}^TX^TX\widehat{\alpha}}{p\widehat{\sigma}^2} \sim F(p, N-p)$. \\
 
 	Критична область -- область великих значень. Область прийняття: \[ \dfrac{\|X\widehat{\alpha}\|_2^2}{p\widehat{\sigma}^2} < F_\gamma(p,N-p)\] -- $100\gamma\%$ точка $F$-розподілу з параметрами $(p,N-p)$.
-
 	\item Перевіряємо гіпотезу: $H_0: \alpha_i = 0$, $\gamma>0$. $\frac{\widehat{\alpha}_i-\alpha_i}{\widehat{\sigma}\sqrt{d_i}} \sim t(N-p)$. При справедливості $H_0$, статистика: $t_i = \frac{\widehat{\alpha}_i}{\widehat{\sigma}\sqrt{d_i}} \sim t(N-p)$, де $d_i$ -- $і$-й діагональний елемент матриці $(X^TX)^{-1}$. \\
 
 	Критична область -- область дуже малих і дуже великих значень. \\
 
 	Область прийняття: \[\dfrac{|\widehat{\alpha}_i|}{\widehat{\sigma}\sqrt{d_i}} < t_{\gamma/2}(N-p).\]
-
 	\item Нехай в моделі перший регресоp $x_1(K) \equiv 1$. Тоді \[y(k) = \alpha_1 + \Sum_{i=2}^p \alpha_i x_i(k) + e(k), \quad k = \overline{1,N}.\] Потрібно перевірити на значимість всі $\alpha_i$, $i=\overline{2,p}$. $H_0: \alpha_2 = \alpha_3 = \ldots = \alpha_p = 0$, $\gamma > 0$. Якщо $H_0$ справедлива, то достатньо обмежитись тим, що $y(k)= \alpha_1 + e'(k)$, $k = \overline{1,N}$. \\
 
 	Або $H_0$ можна переписати у вигляді: Множина коефіцієнту кореляції залежної змінної, множина незалежної змінної суттєво відхиляються від 0. \\
 
 	Тобто $\widehat{\widehat{\alpha}} = \widehat{\widehat{y}}(K) = \bar{y} = \dfrac{1}{N} \Sum_{k=1}^N y(k)$.
-
-	\[H_0: \begin{pmatrix} 0 & 1 & \cdots & 0 \\ 0 & 0 & \ddots & 0 \\ \cdots & \cdots & \cdots & 1 \\ 0 & 0 & \cdots & 0\end{pmatrix}, \quad \alpha = (0, \ldots, 0)^T,\quad  \gamma > 0, \quad \rang  A = p - 1. \]
-
+	\[H_0: \begin{pmatrix} 0 & 1 & \cdots & 0 \\
+ 0 & 0 & \ddots & 0 \\
+ \cdots & \cdots & \cdots & 1 \\
+ 0 & 0 & \cdots & 0\end{pmatrix}, \quad \alpha = (0, \ldots, 0)^T,\quad  \gamma > 0, \quad \rang  A = p - 1. \]
 	Тоді за теоремою про перевірку лінійної гіпотези:
 	\begin{multline*}
 		F = \dfrac{Q(\widehat{\alpha}_L)-Q(\widehat{\alpha})}{(p-1)\widehat{\sigma}^2} = \dfrac{\|X\widehat{\alpha}-X\widehat{\alpha}_L\|_2^2}{(p-1)\widehat{\sigma}^2} = \\
 		= \dfrac{\Sum_{i=1}^N (X^T(k)\widehat{\alpha}-\bar{y})^2}{(p-1)\widehat{\sigma}^2} = F < F_\gamma(p-1,N-p).
 	\end{multline*}
 \end{enumerate}
-
 \subsection{Довірчі інтервали та області для функції регресії}
-
 Нас цікавить довірчий інтервал і область для величин $x^T(k)\alpha$ та для всього $X\alpha$.
-
 \begin{enumerate}
 	\item \textit{Довірча область для вектора значень функції регресії} $X\alpha$. Враховуючи довірчу область знайдену для $\widehat{\alpha}$ у попередньому пункті, можемо записати:
-
 	\[\dfrac{(\widehat{\alpha}-\alpha)^TX^TX(\widehat{\alpha}-\alpha)}{p\widehat{\sigma}^2} = \dfrac{\|X\widehat{\alpha}-X\alpha\|_2^2}{p\widehat{\sigma}^2} < F_\gamma(p,N-p). \]
-
 	\item \textit{Довірча область для} $x^T(k)\alpha$. За властивістю 3: \[ \widehat{y}(k) \sim N(x^T(k)\alpha,\sigma^2x^T(k)(X^TX)^{-1}x(k)), \] тому наступна статистика \[ \dfrac{\widehat{y}(k)-x^T(k)\alpha}{\sigma\sqrt{x^T(k)(X^TX)^{-1}x(k)}} \sim N(0,1). \]
-
 	За властивістю 4: \[ \dfrac{(N-p)\widehat{\sigma}^2}{\sigma^2}\sim\chi^2(N-p), \] тому
-
 	\[ \dfrac{\dfrac{\widehat{y}(k)-x^T(k)\alpha}{\sigma\sqrt{x^T(k)(X^TX)^{-1}x(k)}}}{\sqrt{\dfrac{(N-p)\widehat{\sigma}^2}{(N-p)\sigma^2}}} = \dfrac{\widehat{y}(k)-x^T(k)\alpha}{\widehat{\sigma}\sqrt{x^T(k)(X^TX)^{-1}x(k)}} \sim t(N-p), \] 
-
 	тому довірча область має вигляд \[ \left|\dfrac{\widehat{y}(k)-x^T(k)\alpha}{\widehat{\sigma}\sqrt{x^T(k)(X^TX)^{-1}x(k)}}\right| < t_{\gamma/2}(N-p). \]
 \end{enumerate}
-
 \subsection{Перевірка на адекватність}
-
 Перевірка на адекватність здійснюється шляхом перевірки спільномірності оцінки $\widehat{\sigma}$, отриманої на базі основної вибірки, з оцінкою $\sigma^2$ на базі спостережень з додаткової вибірки вимірів у фіксованій точці фазового простору. \\
 
 Випадки неадекватності:
@@ -203,7 +152,6 @@
 	\item або більше параметрів;
 	\item або менше параметрів.
 \end{enumerate}
-
 \begin{enumerate}
 	\item Нехай модель істинна: $My = X\alpha+X_1\alpha_1$, вибрана модель: $My = X\alpha$. \\
 
@@ -212,18 +160,13 @@
 	Знаходимо оцінки $\widehat{\alpha}$, $\widehat{\sigma}$: $\widehat{\sigma}^2 = \dfrac{\|y-X\widehat{\alpha}\|_2^2}{N-p}$. \\
 
 	Оцінка $\widehat{\alpha}$ зміщена, тобто \[ M \widehat{\alpha} = \alpha + \Delta \alpha = \alpha + (X^TX)^{-1}X^TX_1\alpha_1. \]
-
 	$\widehat{\alpha}$ -- неслушна оцінка, $\widehat{\sigma}$ -- зміщена оцінка, тобто: \[ M\widehat{\sigma}^2 = \sigma^2 + \Delta\sigma^2.\]
-
 	\item Нехай в істинній моделі менше параметрів, ніж у вибраній, у якій є зайві. Тобто: $My = X\alpha$ істинна, а $My = X\alpha + X_1\alpha_1$ -- вибрана.
-
 	\[ \bar{X} = (X\vdots X_1), \quad \bar{\alpha} = (\alpha, \alpha_1)^T. \]
-
 	В цьому випадку: $\widehat{\bar{\alpha}}$ -- незміщена, і $M\widehat{\bar{\alpha}}=(\alpha,O)^T$. $\widehat{\bar{\alpha}}$ -- слушна оцінка. \\
 
 	Оцінка $\widehat{\sigma}^2$ -- незміщена, $M\widehat{\sigma}^2 = \sigma^2$. \\
 
 	Ми втратили точності оцінки у вигляді: \[ M(\widehat{\bar{\alpha}}-M\widehat{\bar{\alpha}})(\widehat{\bar{\alpha}}-M\widehat{\bar{\alpha}})^T =\sigma^2 (X^TX)^{-1} + \Delta u, \quad \Delta u \ge 0. \]
- 
   	Точність оцінки може збільшуватись.
 \end{enumerate}

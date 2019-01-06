@@ -1,21 +1,15 @@
 \textit{Контрастами} будемо називати статистики вище наведеного вигляду для коефіцієнтів яких справедлива умова. Нас цікавить перевірка гіпотези: \[H_0: \Sum_i c_i\theta_i=0, \quad \Sum_ic_i=0, \quad \theta_i>0.\]
-
 \textbf{Алгоритм перевірки гіпотези}
 \begin{enumerate}
 	\item Будуємо \textit{довірчий інтервал} з рівнем довіри $(1-\alpha)$.
 	\item \textit{Якщо нуль належить} цьому інтервалу, то гіпотезу вважаємо справедливою, інакше її відхиляємо.
 \end{enumerate}
-
 \subsection{Довірчі інтервали для контрастів}
-
 \begin{enumerate}
 	\item Якщо $c_i$ -- \textit{наперед задані}, то \[ \left|\Sum_ic_i\bar{y}_i-\Sum_ic_i\theta_i\right|<\bar{S}_E \Sum_i\dfrac{c_i^2}{J_i} t_{\alpha/2}(N-I), \] де \[\left|\Sum_ic_i\bar{y}_i-\Sum_ic_i\theta_i\right|\] -- \textit{усереднена залишкова сума квадратів}.
-
 	\item \textit{$S$-метод Шофе} \[\left|\Sum_ic_i\bar{y}_i-\Sum_ic_i\theta_i\right|<\sqrt{\bar{S}_E\Sum_i\dfrac{c_i^2}{J_I}(I-1)F_\alpha(I-1,N-I)}. \]
-
 	\item \textit{$T$-метод Кьюні} орієнтований на побудову довірчих інтервалів для контрастів статистики $\theta_i-\theta_j$, крім того припускаємо, що кількість вимірів при кожній градації однакова, тобто $\forall i: J_i = J$, тоді \[|(\bar{y}_i-\bar{y}_j)-(\theta_i-\theta_j)|<\bar{S}_Eq_\alpha(I,N-I),\] де $q_\alpha(I,N-I)$ -- $100\alpha\%$-на точка Стьюдентизованого розмаху.
 \end{enumerate}
-
 \textbf{Зауваження}. Нехай є $\eta_i$, $i =\overline{1, I}$ -- нормально розподілені величини з параметрами 0 та 1; статистика $\chi^2(k)$ має $\chi^2$-розподіл; $\{\eta_i\}, \chi^2(k)$ -- незалежні. \\
 
 Тоді величина $\max_i \eta_i - \min_i \sqrt{\chi^2(k)}$ має розподіл Стьюдентизованого розмаху з параметрами $i$, $k$. \\
@@ -38,38 +32,37 @@
 		\item $e_{ijk}$ -- незалежні.
 	\end{enumerate}
 \end{itemize}
-
 Нехай є така модель, відомі тільки $e_{ijk}$ та які градації чому відповідають. \\
 
 Припускаємо: \[ \forall v_i>0 \exists w_j>0: \forall i,j: \Sum_{i=1}^I v_i\alpha_i=\Sum_{j=1}^J w_i\gamma_{ij} = \Sum_{j=1}^J w_jp_j = \Sum_{i=1}^I v_j\gamma_{ij}=0 \]
-
 \textit{Наявність таких лінійних обмежень} дозволяє стверджувати, що \textit{методом МНК} ми зможемо знайти оцінки вектора невідомих параметрів з цієї моделі. \\
 
 \textbf{Зауваження}. З метою спрощення виразів розглянемо випадок $\forall i,j: v_i = \frac{1}{I}, w_j = \frac{1}{J}, k_{ij}=k, N = I \cdot J \cdot K$. Перевіремо гіпотези $H_A: \alpha_1 = \alpha_2 = \ldots = \alpha_I$, $\gamma > 0$; $H_B: \beta_1 = \beta_2 = \ldots = \beta_J$, $\gamma > 0$; $H_{AB}: \forall i,j: \gamma_{ij} = 0$, $\gamma > 0$. \\
 
 \textit{Оцінки МНК вищезгаданої моделі при наявності вищезгаданих лінійних обмежень} обчислюються за формулами ($*$ замість індексу означає, що по цьому індексу береться усереднене): \[ \widehat{\mu} = \bar{y}, \quad \widehat{\alpha}_i = y_{i**} - \bar{y}, \quad \widehat{\beta} = y_{*j*} - \bar{y}, \quad \widehat{\gamma}_{ij} =y_{ij*} - y_{i**} - y_{*j*} + \bar{y}.\]
-
 Введемо величини 
 \begin{multline*}
 S_E = \Sum_{i,j,k}(y_{ijk}-\bar{y})^2, \quad S_A = JK\Sum_i(y_{i**}-\bar{y})^2, \\
 S_B = IK\Sum_j(y_{*j*}-\bar{y})^2, \quad S_{AB} = K\Sum_{i,j}(y_{ij*} - y_{i**} - y_{*j*} + \bar{y})^2. 
 \end{multline*}
-
 Розглянемо \textit{таблицю результатів}
 \begin{table}[H]
 	\centering
 	\begin{tabular}{|c|c|c|}
 	\hline
-	Джерело варіації & СК & КСС \\ \hline
-	Головний ефект фактору $A$ & $S_A$ & $(I-1)$ \\ \hline
-	Головний ефект фактору $B$ & $S_B$ & $(J-1)$ \\ \hline
-	Головний ефект взаємодії & $S_{AB}$ & $(I-1)(J-1)$ \\ \hline
-	Загальна сума квадратів & $S_E$ & $IJ(K-1)$ \\ \hline
+	Джерело варіації & СК & КСС \\
+ \hline
+	Головний ефект фактору $A$ & $S_A$ & $(I-1)$ \\
+ \hline
+	Головний ефект фактору $B$ & $S_B$ & $(J-1)$ \\
+ \hline
+	Головний ефект взаємодії & $S_{AB}$ & $(I-1)(J-1)$ \\
+ \hline
+	Загальна сума квадратів & $S_E$ & $IJ(K-1)$ \\
+ \hline
 	\end{tabular}
 \end{table}
-
 \[ H_A: F_A = \dfrac{\dfrac{S_A}{I-1}}{\dfrac{S_E}{IJ(K-1)}} < F_\gamma(I-1,IJ(K-1)). \]
 \[ H_B: F_B = \dfrac{\dfrac{S_B}{J-1}}{\dfrac{S_E}{IJ(K-1)}} < F_\gamma(J-1,IJ(K-1)). \]
 \[ H_{AB}: F_{AB} = \dfrac{\dfrac{S_{AB}}{(I-1)(J-1)}}{\dfrac{S_E}{IJ(K-1)}} < F_\gamma((I-1)(J-1),IJ(K-1)). \]
-
 \textbf{Зауваження} У випадку коли факторів більше двох, тоді в правій частині крім наявності головних ефектів будуть ще й ефекти по всім факторам, тобто $y_{i_1i_2\ldots}=\mu+\alpha_{i_1}+\ldots+w_{i_f}$.
