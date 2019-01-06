@@ -10,7 +10,7 @@
 
 \[ R^{-1/2}y = R^{-1/2}X\alpha + R^{-1/2}e, \] тоді, згідно властивості лінійного перетворення нормально розподілених випадкових величин $R^{-1/2}e \sim N(\vec0, E)$, тобто тут помилки уже будуть незалежними. \\
 
-Ввівши позначення отримаємо нову модель $\widetilde{y} = \widetilde{X}\alpha + \widetilde{e}$ причому $\widetilde{e}\sim N(\vec0,R)$ і тоді будуємо оцінку класичним методом найменших квадратів : \[ \widehat{\alpha} = (\widetilde{X}^*\widetilde{X})^{-1}\widetilde{X}^T\widetilde{y}=(X^TR^{-1/2}R^{-1/2}X)^{-1}X^TR^{-1/2}R^{-1/2}y=(X^TR^{-1}X)^{-1}X^TR^{-1}y. \]
+Ввівши позначення отримаємо нову модель $\widetilde{y} = \widetilde{X}\alpha + \widetilde{e}$ причому $\widetilde{e}\sim N(\vec0,R)$ і тоді будуємо оцінку класичним методом найменших квадратів : \begin{multline*} \widehat{\alpha} = (\widetilde{X}^*\widetilde{X})^{-1}\widetilde{X}^T\widetilde{y}=(X^TR^{-1/2}R^{-1/2}X)^{-1}X^TR^{-1/2}R^{-1/2}y=\\=(X^TR^{-1}X)^{-1}X^TR^{-1}y. \end{multline*}
 
 Цю оцінку називають \textit{Марківською}. \\
 

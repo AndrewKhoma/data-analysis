@@ -7,17 +7,18 @@ library("forecast")
 my.ts = USAccDeaths
 plot.ts(my.ts)
 
-smoothed = SMA(my.ts, n = 2)
+smoothed = SMA(my.ts, n = 2) # smooth moving average
 plot.ts(smoothed)
 
 comp = decompose(smoothed)
 plot(comp)
 
 # forecast
-sm.fcst = HoltWinters(x = my.ts, beta = FALSE, gamma = FALSE)
+sm.fcst = HoltWinters(x = my.ts, beta = TRUE, gamma = TRUE)
 plot(sm.fcst)
 
-sm.fcst2 = forecast(sm.fcst, h = 10)
+sm.fcst2 = forecast(sm.fcst, h = 12)
+plot(sm.fcst2)
 sm.fcst2$residuals
 #             Jan        Feb        Mar        Apr
 # 1973         NA  -901.0000   821.9404   209.0543
@@ -43,6 +44,3 @@ sm.fcst2$residuals
 plot(sm.fcst2)
 
 # errors
-sm.fcst2$residuals[1] = -1000
-length(sm.fcst2$residuals)  # 72
-acf(sm.fcst2$residuals, lag.max = 72)
